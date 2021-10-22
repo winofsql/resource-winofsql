@@ -1,34 +1,49 @@
-# subject-1022-winofsql
+# Subject ワークスペース用テンプレート
 
-## 社員マスタのリセット
+## 環境 => https://github.com/winofsql/vscode-template
+ワークスペース テンプレート
 
-1. TRUNCATE TABLE 社員マスタ でデータクリア 
+#### 1 : subject-main.zip としてダウンロード
 
-2. SQLの窓に販売管理C.mdb を開いてエクスポート
+#### 2 : [7Zip](https://sevenzip.osdn.jp/) で解凍
 
-![image](https://user-images.githubusercontent.com/1501327/138387502-19d0bc7a-3884-43fb-a633-d67a51944aab.png)
+#### 3 : -main を -9999 フォーマットで当日日付に変更
 
-※ 既に存在するのでそのままデフォルトで実行するとデータが追加される
+#### 4 : VSCode で フォルダとして中の zz-workspace-vbs フォルダを開く
 
+#### 5 : Run Terminal Command で 設定から 『基本設定』 を実行
 
-## CSV 出力
+#### 6 : Run Terminal Command で 設定から 『設定ファイルのダウンロード』 を実行
 
-1. MySQL の SQL での実行 UI
+#### 7 : Run Terminal Command で 設定から 『ワークスペース作成』 を実行
 
-![image](https://user-images.githubusercontent.com/1501327/138387988-0cb9f291-f2a0-4328-9876-033346d2299c.png)
+#### 8 : フォルダで開いた VSCode を閉じる
 
-2. SQLの窓の処理として複数テーブルのエクスポート
+#### 9 : lightbox.code-workspace を エクスプローラから実行
 
-![image](https://user-images.githubusercontent.com/1501327/138388199-b8392a3e-e7e1-44d9-8ea2-5154e84edf10.png)
+#### 10 : zz-workspace-vbs フォルダと同じところに、言語用フォルダ( ※1 )を作成
 
-![image](https://user-images.githubusercontent.com/1501327/138388301-6975b7e8-95cd-4efb-83f5-70c9f0cf816b.png)
+#### 11 : Run Terminal Command で 設定から 『ワークスペース作成』 を実行
 
-3. 単独テーブルからエクスポート
+![image](https://user-images.githubusercontent.com/1501327/134792059-fea2d3a3-c180-4246-bc03-5f3a6814adaf.png)
 
-![image](https://user-images.githubusercontent.com/1501327/138388487-575ea0a7-9b03-4885-90c1-3fef819e38af.png)
+拡張を指定フォルダに保存している場合は、vscode.bat を作成して **『その他のアプリ』** から選択
+```
+"D:\app2\Microsoft VS Code\Code.exe" --extensions-dir="D:\app2\vscode\extensions" %1
+```
 
-![image](https://user-images.githubusercontent.com/1501327/138388659-9c9dde2e-374f-4af6-a57a-ce80996ec496.png)
-
-## 使用列の選択
-
-![image](https://user-images.githubusercontent.com/1501327/138394907-aedc1826-0393-40bc-9e7c-8c23460e81e1.png)
+\
+\
+**※1 ▼ 以下の文字列を含むフォルダ**
+```
+java
+cs
+js
+hta
+php
+ps
+py
+sql
+vbs
+wsh
+```
