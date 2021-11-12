@@ -58,3 +58,5 @@ sqlcmd -E -S .\SQLEXPRESS
 ALTER LOGIN sa WITH PASSWORD = 'XXXXXXXXXXXX'
 go
 ```
+
+[SQLExpress 設定](https://winofsql.jp/matrix/ginpro/patio.cgi?mode=view&no=228)
