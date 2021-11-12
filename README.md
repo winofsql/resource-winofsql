@@ -48,3 +48,13 @@
 4. Oracle
 5. PostgreSQL
 -
+
+## sa パスワード変更
+```
+sqlcmd -E -S .\SQLEXPRESS
+```
+
+```
+ALTER LOGIN sa WITH PASSWORD = 'XXXXXXXXXXXX'
+go
+```
