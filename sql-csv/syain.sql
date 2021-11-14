@@ -1,1 +1,0 @@
-TRUNCATE TABLE 社員マスタ;
