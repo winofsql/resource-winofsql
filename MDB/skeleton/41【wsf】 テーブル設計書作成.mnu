@@ -1,1 +1,794 @@
+@WSFEXEC
+$NORESULT
+$NOCONSOLE
+<PACKAGE>
+<JOB>
+<RUNTIME>
+<DESCRIPTION>
+*******************************************************************
+ プログラム名 : 
+*******************************************************************
+</DESCRIPTION>
+<EXAMPLE>
 
+引数無し
+</EXAMPLE>
+</RUNTIME>
+
+<COMMENT>
+************************************************************
+ オブジェクト定義
+************************************************************
+</COMMENT>
+<REFERENCE object="ADODB.Connection" />
+<OBJECT id="Cn" progid="ADODB.Connection" />
+<OBJECT id="Rs" progid="ADODB.Recordset" />
+<OBJECT id="ExcelApp" progid="Excel.Application" />
+<OBJECT id="WshShell" progid="WScript.Shell" />
+<OBJECT id="Fso" progid="Scripting.FileSystemObject" />
+
+<COMMENT>
+************************************************************
+ 外部スクリプト定義
+************************************************************
+</COMMENT>
+<SCRIPT language="VBScript" src="$PGDIR\Tool\script\vbslib\db.vbs"></SCRIPT>
+<SCRIPT language="VBScript" src="$PGDIR\Tool\script\vbslib\common.vbs"></SCRIPT>
+
+<COMMENT>
+************************************************************
+ カレントスクリプト
+************************************************************
+</COMMENT>
+<SCRIPT language=VBScript>
+if Wscript.Arguments.Count = 0 then
+	str = WScript.ScriptFullName
+	Call WshShell.Run( "cmd.exe /c cscript.exe " & Dd(str) & " dummy_param & pause",, true )
+	WScript.Quit
+end if
+
+
+
+Const xlContinuous = 1
+Const xlDash = -4115
+Const xlDashDot = 4
+Const xlDashDotDot = 5
+Const xlDot = -4118
+Const xlDouble = -4119
+Const xlSlantDashDot = 13
+Const xlLineStyleNone = -4142
+
+Const xlHairline = 1
+Const xlMedium = -4138
+Const xlThick = 4
+Const xlThin = 2
+
+Const xlInsideHorizontal = 12
+Const xlInsideVertical = 11
+Const xlDiagonalDown = 5
+Const xlDiagonalUp = 6
+Const xlEdgeBottom = 9
+Const xlEdgeLeft = 7
+Const xlEdgeRight = 10
+Const xlEdgeTop = 8
+
+Const xlAutomatic = -4105
+
+Const xlMaximized = -4137
+Const xlMinimized = -4140
+Const xlNormal = -4143
+
+Const xlGeneral = 1
+Const xlLeft = -4131
+Const xlCenter = -4108
+Const xlRight = -4152
+Const xlFill = 5
+Const xlJustify = -4130
+Const xlCenterAcrossSelection = 7
+Const xlDistributed = -4117
+Const xlTop = -4160
+Const xlBottom = -4107
+
+Dim aTable,Result,Query,Query2,nCnt,strCol,aCol,nRows,nRowHeight
+Dim Target,MyBook
+Dim nColX,nColY,strSheetName,strBaseSheet
+Dim aData
+Dim Rs,Rs2
+
+ExcelApp.Visible = False
+strBaseSheet = "テーブル設計雛形"
+
+' **********************************************************
+' Excel 初期処理
+' **********************************************************
+aTable = Split("$LISTTABLE", "," )
+
+' 保存用ファイルを選択する
+Target = "C:\app\workspace\" & aTable(0) & ".xlsx"
+
+' キャンセルの為終了
+if Target = "" then
+	Wscript.Quit
+End if
+
+' ブック作成
+Set MyBook = CreateBook(Target)
+if not IsObject( MyBook ) then
+	' 初期処理エラーの為、直接終了
+	ExcelApp.Quit
+	' エラーメッセージの表示
+	MsgBox( MyBook )
+	Wscript.Quit
+end if
+
+' **********************************************************
+' Excel 出力用 初期処理
+' **********************************************************
+Function ColumnInit(MyBook,SheetName)
+
+	' 行数
+	nRows = 65
+	nRowHeight = 13.5
+
+	Call Format_Table(MyBook,SheetName)
+	Call Format_Page(MyBook)
+
+End Function
+
+' **********************************************************
+' 接続
+' **********************************************************
+Cn.CursorLocation = adUseClient
+Result = MDB_DBConnect( Cn, "$DBPATH" )
+if Result <> "" then
+	MsgBox( Result )
+	Wscript.Quit
+end if
+
+' **********************************************************
+' 読み出し
+' **********************************************************
+Wscript.Echo "処理を開始しました。しばらくお待ち下さい"
+For i = 0 to Ubound( aTable )
+	if DBGetMDB( aTable(i) ) then
+		' ************************************************
+		' Excel 処理
+		' ************************************************
+		nColX = 2
+		nColY = 6
+		if i = 0 then
+			Call AddSheetLast( MyBook, strBaseSheet )
+			Call DeleteSheet(MyBook,"Sheet1" )
+			Call ColumnInit(MyBook,strBaseSheet)
+			Wscript.Echo strBaseSheet & " を追加しました"
+		end if
+		strSheetName = ExcelCopySheet( MyBook, strBaseSheet, aTable(i) )
+		strSaveSheetName = strSheetName
+		Call ExcelSetCell(MyBook, strSheetName, 2, 4, aTable(i) )
+
+		nCnt = 1
+		nRowCnt = 1
+		nSheetCount = 1
+		Redim aData(0)
+		Do While not Rs.EOF
+			Redim Preserve aData(nCnt)
+			aData(nCnt) = Rs.Fields("COLUMN_NAME").value & ""
+			' ************************************************
+			' Excel 処理
+			' ************************************************
+			Call ExcelSetCell(MyBook, strSheetName, nColX, nColY, Rs.Fields("COLUMN_NAME").value & "")
+			strType = CLng(Rs.Fields("DATA_TYPE").value)
+			Select Case strType
+				Case 130
+					if CLng(Rs.Fields("CHARACTER_MAXIMUM_LENGTH").value) = 0 then
+						Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "MEMO" )
+					else
+						Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "VARCHAR" )
+						Call ExcelSetCell(MyBook, strSheetName, nColX+3, nColY, CLng(Rs.Fields("CHARACTER_MAXIMUM_LENGTH").value))
+					end if
+				Case 2
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "SMALLINT" )
+				Case 3
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "INT" )
+				Case 11
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "YESNO" )
+				Case 17
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "BYTE" )
+				Case 5
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "NUMBER" )
+				Case 131
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "DECIMAL" )
+					Call ExcelSetCell(MyBook, strSheetName, nColX+3, nColY, CLng(Rs.Fields("NUMERIC_PRECISION").value))
+					Call ExcelSetCell(MyBook, strSheetName, nColX+4, nColY, CLng(Rs.Fields("NUMERIC_SCALE").value))
+				Case 4
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "REAL" )
+				Case 6
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "MONEY" )
+				Case 7
+					Call ExcelSetCell(MyBook, strSheetName, nColX+2, nColY, "DATETIME" )
+			End Select
+			nColY = nColY + 1
+
+			Rs.MoveNext
+			nCnt = nCnt + 1
+			nRowCnt = nRowCnt + 1
+			if nRowCnt > 65 then
+				nRowCnt = 1
+				nColX = 2
+				nColY = 6
+				nSheetCount = nSheetCount + 1
+				strSheetName = ExcelCopySheet( MyBook, strBaseSheet, aTable(i) & "(" & nSheetCount & ")" )
+				Call ExcelSetCell(MyBook, strSheetName, 2, 4, aTable(i) )
+			end if
+		Loop
+		strSheetName = strSaveSheetName
+		Rs.Close
+
+		if DBGetMDB2( aTable(i) ) then
+			Do While not Rs.EOF
+				For k = 1 to Ubound( aData )
+					if Rs.Fields("COLUMN_NAME").value & "" = aData( k ) then
+						Call ExcelSetCell(MyBook, strSheetName, 11, 5 + k, CLng(Rs.Fields("ORDINAL").value) )
+					end if
+				Next
+				Rs.MoveNext
+			Loop
+		end if
+		Rs.Close
+
+		Wscript.Echo strSheetName & " を追加しました"
+	end if
+
+Next
+
+
+' **********************************************************
+' 接続解除
+' **********************************************************
+Call DBClose( Rs )
+Call DBClose( Cn )
+
+' **********************************************************
+' 処理終了
+' **********************************************************
+Call ExcelSave(MyBook)
+Call ExcelQuit(MyBook)
+
+Wscript.Echo "処理が完了しました"
+
+Call ExcelLoad(Target)
+
+
+' **********************************************************
+' Excel 処理関数
+' **********************************************************
+' ******************************************************
+' シート名によるシート複写
+' ******************************************************
+Function ExcelCopySheet(MyBook, strSheetName, strNewSheetName)
+
+	MyBook.Sheets(strSheetName).Copy (MyBook.Sheets(strSheetName))
+
+	on error resume next
+	MyBook.ActiveSheet.Name = strNewSheetName
+	on error goto 0
+
+	ExcelCopySheet = MyBook.ActiveSheet.Name
+
+End Function
+
+' ************************************************
+' Excel ブック作成
+' ************************************************
+function CreateBook(BookPath)
+
+	ExcelApp.DisplayAlerts = False
+
+	ExcelApp.Workbooks.Add
+	nBooks = ExcelApp.Workbooks.Count
+	Set CreateBook = ExcelApp.Workbooks( nBooks )
+	CreateBook.Activate
+
+	on error resume next
+	CreateBook.SaveAs( BookPath )
+	if Err.Number <> 0 then
+		CreateBook = "ERROR:" & Err.Description
+	end if
+	on error goto 0
+
+End Function
+
+' ************************************************
+' 終了
+' ************************************************
+Function ExcelQuit(WorkBook)
+
+	If TypeName(WorkBook) = "Workbook" Then
+		' 保存した事にする
+		WorkBook.Saved = True
+	End If
+	If IsObject(ExcelApp) Then
+		ExcelApp.Quit
+	End If
+
+End Function
+
+' ************************************************
+' セルへのデータセット
+' ************************************************
+Function ExcelSetCell(MyBook, strSheetName, x, y, Data)
+
+	MyBook.Sheets(strSheetName).Cells(y, x) = Data
+
+End Function
+
+' ************************************************
+' 先頭にシートを追加
+' ************************************************
+function AddSheetTop( MyBook, SheetName )
+
+	Dim Worksheet
+	Dim Worksheet2
+
+	Set Worksheet = MyBook.Worksheets( 1 )
+	Worksheet.Activate
+	Workbook.Worksheets.Add
+	Set Worksheet2 = Workbook.ActiveSheet
+	on error resume next
+	Worksheet2.Name = SheetName
+	on error goto 0
+
+	AddSheetTop = Worksheet2.Name
+
+end function
+
+' ************************************************
+' 最後にシートを追加
+' ************************************************
+function AddSheetLast( MyBook, SheetName )
+
+	Dim Worksheet
+	Dim Worksheet2
+	Dim nSheets
+
+	nSheets = MyBook.Worksheets.Count
+	Set Worksheet = MyBook.Worksheets( nSheets )
+	Worksheet.Activate
+	Call MyBook.Worksheets.Add(,Worksheet)
+	Set Worksheet2 = MyBook.ActiveSheet
+	on error resume next
+	Worksheet2.Name = SheetName
+	on error goto 0
+
+	AddSheetLast = Worksheet2.Name
+
+end function
+
+' ************************************************
+' Excel 実行 ( NT5.0 以上 )
+' ************************************************
+Function ExcelLoad(strPath)
+
+	Call WshShell.Run( "RunDLL32.EXE shell32.dll,ShellExec_RunDLL " & _
+		strPath )
+
+End Function
+
+' ************************************************
+' 上書き保存
+' ************************************************
+Function ExcelSave(MyBook)
+
+	MyBook.Save
+
+End Function
+
+' ************************************************
+' シートを削除
+' ************************************************
+function DeleteSheet( MyBook, SheetName )
+
+	Dim Worksheet
+
+	Set Worksheet = MyBook.Worksheets( SheetName )
+
+	on error resume next
+	Worksheet.Delete
+	on error goto 0
+
+end function
+
+
+
+' ******************************************************
+' 指定行の高さを設定
+' ******************************************************
+Function ExcelSetRowHeight(MyBook, strSheetName, row, Height)
+
+	MyBook.Sheets(strSheetName).Rows(row).RowHeight = _
+	Height
+
+End Function
+
+' ******************************************************
+' 指定列の幅を設定
+' ******************************************************
+Function ExcelSetColumnWidth(MyBook, strSheetName, column, Width)
+
+	Dim strColumn
+
+	strColumn = Chr(Asc("A") + column - 1)
+
+	MyBook.Sheets(strSheetName).Columns(strColumn).ColumnWidth = _
+	Width
+
+End Function
+
+' ******************************************************
+' 範囲選択
+' ******************************************************
+Function ExcelRange(MyBook, strSheetName, nX1, nY1, nX2, nY2 )
+
+	Dim Sheet,strRange
+
+	Set Sheet = MyBook.Sheets(strSheetName)
+	Sheet.Select
+	strRange = Chr(Asc("A") + nX1 - 1) & nY1 & ":"
+	strRange = strRange & Chr(Asc("A") + nX2 - 1) & nY2
+	Sheet.Range(strRange).Select
+
+End Function
+
+' ******************************************************
+' 範囲の上に罫線
+' ******************************************************
+Function ExcelLine( nLineType, nWeight )
+
+	With ExcelApp.Selection.Borders(xlEdgeTop)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+
+End Function
+
+' ******************************************************
+' 範囲の右に罫線（＊追加＊）
+' ******************************************************
+Function ExcelLineRight( nLineType, nWeight )
+
+	With ExcelApp.Selection.Borders(xlEdgeRight)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+
+End Function
+
+' ******************************************************
+' 範囲に罫線
+' ******************************************************
+Function ExcelBox( nLineType, nWeight )
+
+	With ExcelApp.Selection.Borders(xlEdgeTop)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+	With ExcelApp.Selection.Borders(xlEdgeLeft)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+	With ExcelApp.Selection.Borders(xlEdgeRight)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+	With ExcelApp.Selection.Borders(xlEdgeBottom)
+		.LineStyle = nLineType
+		.ColorIndex = xlAutomatic
+		.Weight = nWeight
+	End With
+
+End Function
+
+' ******************************************************
+' 文字列の横位置を指定（＊追加＊）
+' ******************************************************
+Function ExcelHAlign()
+
+	ExcelApp.Selection.HorizontalAlignment = xlCenterAcrossSelection
+
+End Function
+Function ExcelHAlign2()
+
+	ExcelApp.Selection.HorizontalAlignment = xlCenter
+
+End Function
+
+' ******************************************************
+' 文字列の縦位置を指定（＊追加＊）
+' ******************************************************
+Function ExcelVAlign()
+
+	ExcelApp.Selection.VerticalAlignment = xlCenter
+
+End Function
+
+' ******************************************************
+' シート名によるシート選択
+' ******************************************************
+Function ExcelSelectSheet(MyBook, strSheetName)
+
+	MyBook.Sheets(strSheetName).Select
+
+End Function
+
+' ******************************************************
+' テーブル設計書用フォーマット
+' ******************************************************
+Function Format_Table(MyBook,SheetName)
+
+	'テーブル設計書フォーマット作成
+	Call ExcelSelectSheet(MyBook, SheetName)
+'	Call Format_Page(MyBook)
+
+	Call ExcelSize_Table(MyBook, SheetName)
+	Call ExcelLine_Table(MyBook, SheetName)
+	Call ExcelSetText_Table(MyBook, SheetName)
+
+End Function
+
+' ******************************************************
+' セルサイズの設定
+' ******************************************************
+Function ExcelSize_Table(MyBook, Target)
+
+	Dim i
+
+	'セルの高さ合わせ
+	Call ExcelSetRowHeight(MyBook, Target, 1, 13.50)
+	Call ExcelSetRowHeight(MyBook, Target, 2, 24.50)
+	Call ExcelSetRowHeight(MyBook, Target, 3, 13.50)
+	Call ExcelSetRowHeight(MyBook, Target, 4, 24.50)
+	Call ExcelSetRowHeight(MyBook, Target, 5, 20.25)
+
+	For i = 6 To nRows + 5
+		Call ExcelSetRowHeight(MyBook, Target, i, nRowHeight)
+	Next
+
+	'セルの幅合わせ
+	Call ExcelSetColumnWidth(MyBook, Target, 1, 3.50)
+	Call ExcelSetColumnWidth(MyBook, Target, 2, 27.00)
+	Call ExcelSetColumnWidth(MyBook, Target, 3, 0.75)
+	Call ExcelSetColumnWidth(MyBook, Target, 4, 15.00)
+	Call ExcelSetColumnWidth(MyBook, Target, 5, 4.50)
+	Call ExcelSetColumnWidth(MyBook, Target, 6, 3.00)
+	Call ExcelSetColumnWidth(MyBook, Target, 7, 0.75)
+	Call ExcelSetColumnWidth(MyBook, Target, 8, 13.50)
+	Call ExcelSetColumnWidth(MyBook, Target, 9, 0.75)
+	Call ExcelSetColumnWidth(MyBook, Target, 10, 24.00)
+	Call ExcelSetColumnWidth(MyBook, Target, 11, 12.00)
+
+End Function
+
+' ******************************************************
+' 罫線の設定
+' ******************************************************
+Function ExcelLine_Table(MyBook, Target)
+
+	Dim i
+
+	' BOX罫線
+	Call ExcelRange(MyBook, Target, 1, 1, 11, nRows + 5 )
+	Call ExcelBox(xlContinuous, xlMedium)
+
+	' 上罫線
+	Call ExcelRange(MyBook, Target, 1, 2, 11, 2 )
+	Call ExcelLine(xlDot, xlThin)
+
+	Call ExcelRange(MyBook, Target, 1, 3, 11, 3 )
+	Call ExcelLine(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 1, 4, 11, 4 )
+	Call ExcelLine(xlDot, xlThin)
+
+	Call ExcelRange(MyBook, Target, 1, 5, 11, 5 )
+	Call ExcelLine(xlContinuous, xlMedium)
+
+	Call ExcelRange(MyBook, Target, 1, 6, 11, 6 )
+	Call ExcelLine(xlContinuous, xlMedium)
+
+	for i = 7 to nRows + 5
+		Call ExcelRange(MyBook, Target, 1, i, 11, i )
+		Call ExcelLine(xlDot, xlThin)
+	Next
+
+	' 右罫線
+	Call ExcelRange(MyBook, Target, 1, 6, 1, nRows + 5 )
+	Call ExcelLineRight(xlDot, xlThin)
+
+	Call ExcelRange(MyBook, Target, 2, 1, 2, 2 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 2, 5, 2, nRows + 5 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 4, 5, 4, nRows + 5 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 5, 6, 5, nRows + 5 )
+	Call ExcelLineRight(xlDot, xlThin)
+
+	Call ExcelRange(MyBook, Target, 6, 3, 6, nRows + 5 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 8, 1, 8, 4 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+	Call ExcelRange(MyBook, Target, 10, 1, 10, nRows + 5 )
+	Call ExcelLineRight(xlContinuous, xlThin)
+
+End Function
+
+' ******************************************************
+' セルのテキストの設定
+' ******************************************************
+Function ExcelSetText_Table(MyBook, Target)
+
+	Dim i
+
+	Call ExcelRange(MyBook, Target, 1, 1, 7, 49 )
+	Call ExcelVAlign()
+
+	' １行目
+	Call ExcelSetCell(MyBook, Target, 1, 1, "　システム名")
+
+	Call ExcelSetCell(MyBook, Target, 3, 1, "　サブシステム名")
+
+	Call ExcelSetCell(MyBook, Target, 9, 1, "　テーブルID")
+	Call ExcelRange(MyBook, Target, 9, 1, 10, 1 )
+	Call ExcelHAlign()
+	Call ExcelRange(MyBook, Target, 9, 2, 10, 1 )
+	Call ExcelVAlign()
+
+	Call ExcelSetCell(MyBook, Target, 11, 1, "ページ")
+	Call ExcelRange(MyBook, Target, 11, 1, 11, 1 )
+	Call ExcelHAlign()
+	Call ExcelRange(MyBook, Target, 11, 2, 11, 2 )
+	Call ExcelHAlign()
+	Call ExcelRange(MyBook, Target, 11, 2, 11, 2 )
+	Call ExcelVAlign()
+
+	' ２行目
+	Call ExcelSetCell(MyBook, Target, 11, 2, "／")
+	Call ExcelRange(MyBook, Target, 11, 2, 11, 2 )
+
+	' ３行目
+	Call ExcelSetCell(MyBook, Target, 1, 3, "　テーブル名")
+
+	Call ExcelSetCell(MyBook, Target, 7, 3, "種別")
+	Call ExcelRange(MyBook, Target, 7, 3, 8, 3 )
+	Call ExcelHAlign()
+
+	Call ExcelSetCell(MyBook, Target, 9, 3, "作成日")
+	Call ExcelRange(MyBook, Target, 9, 3, 10, 3 )
+	Call ExcelHAlign()
+
+	Call ExcelSetCell(MyBook, Target, 11, 3, "作成者")
+	Call ExcelRange(MyBook, Target, 11, 3, 11, 3 )
+	Call ExcelHAlign()
+
+	' ４行目
+	Call ExcelRange(MyBook, Target, 8, 4, 8, 4 )
+	Call ExcelHAlign2()
+	Call ExcelVAlign()
+
+	Call ExcelRange(MyBook, Target, 10, 4, 10, 4 )
+	Call ExcelHAlign2()
+	Call ExcelVAlign()
+
+	Call ExcelRange(MyBook, Target, 11, 4, 11, 4 )
+	Call ExcelHAlign2()
+	Call ExcelVAlign()
+
+	' ５行目
+	Call ExcelSetCell(MyBook, Target, 1, 5, "　列名")
+
+	Call ExcelSetCell(MyBook, Target, 3, 5, "データ型")
+	Call ExcelRange(MyBook, Target, 3, 5, 4, 5 )
+	Call ExcelHAlign()
+
+	Call ExcelSetCell(MyBook, Target, 5, 5, "サイズ")
+	Call ExcelRange(MyBook, Target, 5, 5, 6, 5 )
+	Call ExcelHAlign()
+
+	Call ExcelSetCell(MyBook, Target, 7, 5, "　説明")
+
+	Call ExcelSetCell(MyBook, Target, 11, 5, "主キー")
+	Call ExcelRange(MyBook, Target, 11, 5, 11, 5 )
+	Call ExcelHAlign()
+	Call ExcelVAlign()
+
+	for i = 6 to nRows + 5
+		Call ExcelSetCell(MyBook, Target, 1, i, i - 5)
+		Call ExcelRange(MyBook, Target, 1, i, 1, i )
+		Call ExcelHAlign()
+		Call ExcelRange(MyBook, Target, 11, i, 11, i )
+		Call ExcelHAlign()
+	next
+
+	Call ExcelRange(MyBook, Target, 1, 1, 1, 1 )
+
+End Function
+
+' ******************************************************
+' ヘッダー,余白の指定
+' ******************************************************
+Function Format_Page(MyBook)
+
+	on error resume next
+
+	With MyBook.ActiveSheet.PageSetup
+		.CenterHeader = "&18&A"
+'		.LeftMargin = ExcelApp.InchesToPoints(0.393700787401575)
+'		.RightMargin = ExcelApp.InchesToPoints(0.196850393700787)
+'		.TopMargin = ExcelApp.InchesToPoints(0.551181102362205)
+'		.BottomMargin = ExcelApp.InchesToPoints(0.393700787401575)
+'		.HeaderMargin = ExcelApp.InchesToPoints(0.196850393700787)
+'		.FooterMargin = ExcelApp.InchesToPoints(0.196850393700787)
+	End With
+
+	on error goto 0
+
+End Function
+
+' ******************************************************
+' テーブル列情報
+' ******************************************************
+Function DBGetMDB( strTable )
+
+	on error resume next
+	Set Rs = Cn.OpenSchema( 4, Array(Empty,Empty,strTable,Empty) )
+	if Err.Number <> 0 then
+		DBGetMDB = false
+	else
+		Rs.CursorLocation = adUseClient
+		Rs.Sort = "ORDINAL_POSITION"
+		Rs.MoveFirst
+		if Rs.EOF then
+			DBGetMDB = false
+		else
+			DBGetMDB = true
+		end if
+	end if
+	on error goto 0
+
+
+End Function
+
+' ******************************************************
+' テーブルキー情報
+' ******************************************************
+Function DBGetMDB2( strTable )
+
+	on error resume next
+	Set Rs = Cn.OpenSchema( 28, Array(Empty,Empty,strTable) )
+	if Err.Number <> 0 then
+		DBGetMDB2 = false
+	else
+		if Rs.EOF then
+			DBGetMDB2 = false
+		else
+			DBGetMDB2 = true
+		end if
+	end if
+	on error goto 0
+
+
+End Function
+
+</SCRIPT>
+</JOB>
+</PACKAGE>
