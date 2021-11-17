@@ -23,6 +23,9 @@ sqlite3.accdb
 "H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"
 csv フォルダ
 ```
+![image](https://user-images.githubusercontent.com/1501327/142143780-91c9bf8d-1086-446a-b72f-3788f8465aea.png)
+
+
 
 ## 社員マスタのリセット
 
