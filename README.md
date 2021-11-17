@@ -1,5 +1,5 @@
 ## ODBC DSN の設定
-```
+```txt
 "H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
 販売管理.mdb
 
