@@ -1,3 +1,29 @@
+## ODBC DSN の設定
+```
+"H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+販売管理.mdb
+
+"H-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+販売管理.accdb
+
+"H-S3-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+sqlite3.mdb
+
+"H-S3-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+sqlite3.accdb
+
+"S3-LIGHTBOX"="SQLite3 ODBC Driver"
+
+"H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"
+販売管理.xls
+
+"H-XLSX"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"
+販売管理.xlsx
+
+"H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"
+csv フォルダ
+```
+
 ## 社員マスタのリセット
 
 1. TRUNCATE TABLE 社員マスタ でデータクリア 
