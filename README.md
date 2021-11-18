@@ -89,3 +89,10 @@ go
 ```
 
 [SQLExpress 設定](https://winofsql.jp/matrix/ginpro/patio.cgi?mode=view&no=228)
+
+
+## PostgreSQL エクスポート
+
+```
+pg_dump -d -U postgres lightbox > lightbox.sql
+```
