@@ -1,29 +1,29 @@
 ## ODBC DSN の設定
 
 <hr>
-"H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+"H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 販売管理.mdb
 
-"H-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+"H-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 販売管理.accdb
 
-"H-S3-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+"H-S3-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 sqlite3.mdb
 
-"H-S3-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"
+"H-S3-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 sqlite3.accdb
 
-"S3-LIGHTBOX"="SQLite3 ODBC Driver"
+"S3-LIGHTBOX"="SQLite3 ODBC Driver"\
 
-"H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"
+"H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
 販売管理.xls
 ![image](https://user-images.githubusercontent.com/1501327/143678677-6f2d536c-b4ac-445b-a7a4-8837bd31618b.png)
 
 
-"H-XLSX"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"
+"H-XLSX"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
 販売管理.xlsx
 
-"H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"
+"H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"\
 csv フォルダ
 <hr>
 
