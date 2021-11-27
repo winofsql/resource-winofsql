@@ -1,6 +1,7 @@
 ## ODBC DSN の設定
 
 <hr>
+
 "H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 販売管理.mdb
 
@@ -16,7 +17,7 @@ sqlite3.accdb
 "S3-LIGHTBOX"="SQLite3 ODBC Driver"\
 
 "H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
-販売管理.xls
+販売管理.xls\
 ![image](https://user-images.githubusercontent.com/1501327/143678677-6f2d536c-b4ac-445b-a7a4-8837bd31618b.png)
 
 
