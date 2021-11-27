@@ -13,6 +13,9 @@
             "path": "excel"
         },
         {
+            "path": "mysql"
+        },
+        {
             "path": "MDB"
         },
         {
