@@ -1,10 +1,10 @@
 {
     "folders": [
         {
-            "path": "bat"
+            "path": "access"
         },
         {
-            "path": "access"
+            "path": "bat"
         },
         {
             "path": "csv"
@@ -13,10 +13,10 @@
             "path": "excel"
         },
         {
-            "path": "mysql"
+            "path": "MDB"
         },
         {
-            "path": "MDB"
+            "path": "SQL"
         },
         {
             "path": "sqlite3"
@@ -779,4 +779,5 @@
             }
         ]
     }
+
 }
