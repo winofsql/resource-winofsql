@@ -23,7 +23,9 @@ lightbox.sqlite3
 
 
 "H-XLSX"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
-販売管理.xlsx
+販売管理.xlsx\
+![image](https://user-images.githubusercontent.com/1501327/143678811-07903abf-f945-49e3-b1eb-5fdf00f00b00.png)
+
 
 "H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"\
 csv フォルダ
