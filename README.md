@@ -15,6 +15,7 @@ sqlite3.mdb
 sqlite3.accdb
 
 "S3-LIGHTBOX"="SQLite3 ODBC Driver"\
+lightbox.sqlite3
 
 "H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
 販売管理.xls\
