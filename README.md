@@ -3,7 +3,9 @@
 <hr>
 
 "H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
-販売管理.mdb
+販売管理.mdb\
+![image](https://user-images.githubusercontent.com/1501327/143729055-9dd4089f-bb09-4ba5-9887-d2330c028b1c.png)
+
 
 "H-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 販売管理.accdb
