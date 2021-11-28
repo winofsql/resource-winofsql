@@ -1,6 +1,6 @@
 ## ODBC DSN の設定
 
-<hr>
+<hr size="1">
 
 ### "H-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"
 #### 販売管理.mdb
