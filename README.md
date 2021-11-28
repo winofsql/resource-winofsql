@@ -13,7 +13,9 @@
 
 
 "H-S3-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
-sqlite3.mdb
+sqlite3.mdb\
+![image](https://user-images.githubusercontent.com/1501327/143729074-43664298-b0c3-467b-bb8b-89ea63e9d10f.png)
+
 
 "H-S3-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 sqlite3.accdb
