@@ -8,7 +8,9 @@
 
 
 "H-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
-販売管理.accdb
+販売管理.accdb\
+![image](https://user-images.githubusercontent.com/1501327/143729063-3146eca0-8de5-4caa-8f0f-af64e55318a5.png)
+
 
 "H-S3-MDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
 sqlite3.mdb
