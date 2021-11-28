@@ -18,10 +18,14 @@ sqlite3.mdb\
 
 
 "H-S3-ACCDB"="Microsoft Access Driver (*.mdb, *.accdb)"\
-sqlite3.accdb
+sqlite3.accdb\
+![image](https://user-images.githubusercontent.com/1501327/143729102-6197f5c6-66b7-470b-9745-e166a7718a1d.png)
+
 
 "S3-LIGHTBOX"="SQLite3 ODBC Driver"\
-lightbox.sqlite3
+lightbox.sqlite3\
+![image](https://user-images.githubusercontent.com/1501327/143729112-96c59029-c430-44ec-9fae-f4ed1adae491.png)
+
 
 "H-XLS"="Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)"\
 販売管理.xls\
@@ -34,7 +38,9 @@ lightbox.sqlite3
 
 
 "H-CSV"="Microsoft Access Text Driver (*.txt, *.csv)"\
-csv フォルダ
+csv フォルダ\
+![image](https://user-images.githubusercontent.com/1501327/143729156-49171bf5-280f-411c-9081-83fc199ca71c.png)
+
 <hr>
 
 ![image](https://user-images.githubusercontent.com/1501327/142143780-91c9bf8d-1086-446a-b72f-3788f8465aea.png)
