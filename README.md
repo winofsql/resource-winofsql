@@ -1,4 +1,4 @@
-(SQLの窓 Document)[https://winofsql.jp/help/cpp/help.htm]
+[SQLの窓 Document](https://winofsql.jp/help/cpp/help.htm)
 
 <br>
 
