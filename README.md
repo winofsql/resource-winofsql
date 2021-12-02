@@ -1,6 +1,6 @@
 [SQLの窓 Document](https://winofsql.jp/help/cpp/help.htm)
 
-<br>
+
 
 ## ODBC DSN の設定
 
