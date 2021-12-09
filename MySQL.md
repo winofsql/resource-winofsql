@@ -9,3 +9,6 @@
 
 ![image](https://user-images.githubusercontent.com/1501327/145488153-e7f76518-55c0-4f51-89d8-c5ca499be1a1.png)
 
+
+## 外部からの接続
+![image](https://user-images.githubusercontent.com/1501327/145489428-c99dbd51-cd3a-4d4c-b322-9be4a4194f88.png)
