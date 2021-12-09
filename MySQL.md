@@ -33,3 +33,12 @@ GRANT ALL PRIVILEGES ON *.*
 ```sql
 drop user ユーザ@'Host'
 ```
+
+## テストデータ作成
+```sql
+SELECT
+    *
+FROM
+    社員マスタ a
+    INNER JOIN 社員マスタ b
+```
