@@ -18,3 +18,12 @@ GRANT ALL PRIVILEGES ON *.*
 	WITH GRANT OPTION
 ```
 ![image](https://user-images.githubusercontent.com/1501327/145489626-ffe8363f-1c20-433f-8b5c-4a50c3ce07d2.png)
+
+## パスワード設定
+```sql
+GRANT ALL PRIVILEGES ON *.* 
+	TO ユーザ@'%'
+	IDENTIFIED BY 'password'
+	WITH GRANT OPTION
+
+```
