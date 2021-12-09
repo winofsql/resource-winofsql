@@ -5,4 +5,7 @@
 
 ![image](https://user-images.githubusercontent.com/1501327/145487874-b681f497-2496-4d85-8aec-f890c142e1cd.png)
 
-- サービスを止めて ✅ ボタンでサービス解除
+- **サービスを止めて ✅ ボタンでサービス解除**
+
+![image](https://user-images.githubusercontent.com/1501327/145488083-f80af954-ec3e-4bcb-8b3b-14ad699e5961.png)
+
