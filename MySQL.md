@@ -69,7 +69,7 @@ INSERT INTO `board` (`row_no`, `body`, `subject`, `from`, `pdate`, `cdate`) VALU
 ``` 
 
 - データ増加
-```
+```sql
 INSERT INTO
     board
 SELECT
