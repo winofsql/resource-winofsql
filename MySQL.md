@@ -7,5 +7,5 @@
 
 - **サービスを止めて ✅ ボタンでサービス解除**
 
-![image](https://user-images.githubusercontent.com/1501327/145488083-f80af954-ec3e-4bcb-8b3b-14ad699e5961.png)
+![image](https://user-images.githubusercontent.com/1501327/145488153-e7f76518-55c0-4f51-89d8-c5ca499be1a1.png)
 
