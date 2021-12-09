@@ -42,3 +42,16 @@ FROM
     社員マスタ a
     INNER JOIN 社員マスタ b
 ```
+
+- 掲示板テーブル
+```sql
+CREATE TABLE IF NOT EXISTS `board` (
+  `row_no` serial,
+  `body` varchar(1000),
+  `subject` varchar(200),
+  `from` varchar(20),
+  `pdate` datetime,
+  `cdate` datetime,
+  primary key(`row_no`)
+)
+```
