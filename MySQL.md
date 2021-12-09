@@ -28,3 +28,8 @@ GRANT ALL PRIVILEGES ON *.*
 
 ```
 **※ 登録されていないユーザは新規登録**
+
+## ユーザ削除
+```sql
+drop user ユーザ@'Host'
+```
