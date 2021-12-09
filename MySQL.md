@@ -22,8 +22,9 @@ GRANT ALL PRIVILEGES ON *.*
 ## パスワード設定
 ```sql
 GRANT ALL PRIVILEGES ON *.* 
-	TO ユーザ@'%'
+	TO ユーザ@'Host'
 	IDENTIFIED BY 'password'
 	WITH GRANT OPTION
 
 ```
+**※ 登録されていないユーザは新規登録**
