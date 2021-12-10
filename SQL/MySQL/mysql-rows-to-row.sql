@@ -54,6 +54,8 @@ FROM
 GROUP BY
     コード;
 
+
+-- CASE を使用してコードをその内容に変換する方法
 SELECT
     氏名,
     CASE
