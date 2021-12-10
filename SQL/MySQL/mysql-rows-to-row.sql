@@ -52,4 +52,15 @@ SELECT
 FROM
     data
 GROUP BY
-    コード
+    コード;
+
+SELECT
+    氏名,
+    CASE
+        性別
+        WHEN 0 THEN '男性'
+        WHEN 1 THEN '女性'
+        ELSE '不明'
+    END AS 性別
+FROM
+    社員マスタ;
