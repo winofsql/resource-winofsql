@@ -84,7 +84,11 @@ FROM
     INNER JOIN `board` b
 ```
 
-- A x B 結合
+- CROSS JOIN ( A x B 結合 )
 ```sql
 select A.* from 社員マスタ A, 社員マスタ B
+```
+```sql
+select * from 社員マスタ A
+cross join 社員マスタ B
 ```
