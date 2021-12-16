@@ -4,6 +4,9 @@
             "path": "access"
         },
         {
+            "path": "action"
+        },
+        {
             "path": "bat"
         },
         {
