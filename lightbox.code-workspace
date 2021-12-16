@@ -23,6 +23,7 @@
         },
     ],
     "settings": {
+        "-files.encoding": "shiftjis",
         "window.title": "${dirty}${activeEditorMedium}${separator}${rootPath}${separator}${rootName}",
         "code-runner.runInTerminal": true,
         "code-runner.fileDirectoryAsCwd": true,
@@ -149,7 +150,19 @@
             },
             {
                 "command": "%windir%\\system32\\odbcad32.exe && exit",
-                "name": "───────────────────────────────────────────",
+                "name": "──────────────────────────────────【ODBC 32】",
+                "auto": true,
+                "group": "🟠 PHP"
+            },
+            {
+                "command": "git clone https://github.com/winofsql/php-board-v02-textfile.git && cd php-board-v02-textfile && rmdir .git /S /Q",
+                "name": "🟥 【掲示板 ver 2】MVC 掲示板 : テキストファイル",
+                "auto": true,
+                "group": "🟠 PHP"
+            },
+            {
+                "command": "%windir%\\system32\\cleanmgr.exe && exit",
+                "name": "──────────────────────────────────【ディスク クリーンアップ】",
                 "auto": true,
                 "group": "🟠 PHP"
             },
@@ -172,38 +185,50 @@
                 "group": "🟥 Java"
             },
             {
-                "command": "mkdir ..\\java-hello-array && cd ..\\java-hello-array && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-hello-array/raw/main HelloArray.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "🌝 java-hello-array",
+                "command": "start chrome https://docs.oracle.com/javase/jp/11/docs/api/java.base/java/util/ArrayList.html#method.summary && exit",
+                "name": "───────────────────────────────【ArrayList ( Java11 )】",
+                "auto": true,
+                "group": "🟥 Java"
+            },
+            {
+                "command": "cd ..\\ && git clone https://github.com/winofsql/java-hello-array.git && cd java-hello-array && rmdir .git /S /Q && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "name": "🌝 【配列とArrayList】 : java-hello-array",
                 "auto": true,
                 "group": "🟥 Java"
             },
             {
                 "command": "mkdir ..\\java-class-list-array && cd ..\\java-class-list-array && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-class-list-array/raw/main Main.java Person.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "🌝 java-class-list-array",
+                "name": "🌝 【クラスや配列を List にセット】 : java-class-list-array",
                 "auto": true,
                 "group": "🟥 Java"
             },
             {
                 "command": "mkdir ..\\java-map-list-array && cd ..\\java-map-list-array && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-map-list-array/raw/main README.md Pg1MapGetEnv.java Pg2GetenvToArray.java Pg3ArrayToList.java Pg4MapForEach.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "🌝 java-map-list-array",
+                "name": "🌝 【MAP と LIST と 配列の一覧表示】 : java-map-list-array",
                 "auto": true,
                 "group": "🟥 Java"
             },
             {
                 "command": "mkdir ..\\java-mysql-select-string-int && cd ..\\java-mysql-select-string-int && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-mysql-select-string-int/raw/main Main.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "🐬 java-mysql-select-string-int",
+                "name": "🐬 【一覧取得( int と String )】 : java-mysql-select-string-int",
                 "auto": true,
                 "group": "🟥 Java"
             },
             {
                 "command": "mkdir ..\\java-mysql-select-date-column-info && cd ..\\java-mysql-select-date-column-info && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-mysql-select-date-column-info/raw/main Main.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "🐬 java-mysql-select-date-column-info",
+                "name": "🐬 【一覧取得( 日付型の処理 )】 : java-mysql-select-date-column-info",
                 "auto": true,
                 "group": "🟥 Java"
             },
             {
                 "command": "mkdir ..\\java-csv-read-ms932 && cd ..\\java-csv-read-ms932 && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/java-csv-read-ms932/raw/main Main.java Main2.java && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
-                "name": "📄 java-csv-read-ms932",
+                "name": "📄 【SHIFT_JIS CSV の読込み】 : java-csv-read-ms932",
+                "auto": true,
+                "group": "🟥 Java"
+            },
+            {
+                "command": "start chrome https://docs.oracle.com/javase/jp/11/docs/api/java.base/java/net/URL.html#openConnection() && exit",
+                "name": "────────────────────────────【URL openConnection ( Java11 )】",
                 "auto": true,
                 "group": "🟥 Java"
             },
@@ -250,8 +275,8 @@
                 "group": "🟥 Java"
             },
             {
-                "command": "RunDLL32.EXE shell32.dll,Control_RunDLL appwiz.cpl",
-                "name": "───────────────────────────────────────────",
+                "command": "RunDLL32.EXE shell32.dll,Control_RunDLL appwiz.cpl && exit",
+                "name": "──────────────────────────────────【プログラムと機能】",
                 "auto": true,
                 "group": "🟥 Java"
             },
@@ -280,8 +305,8 @@
                 "group": "🟥 Java"
             },
             {
-                "command": "control.exe /name Microsoft.WindowsUpdate",
-                "name": "───────────────────────────────────────────",
+                "command": "control.exe /name Microsoft.WindowsUpdate && exit",
+                "name": "──────────────────────────────────【WindowsUpdate】",
                 "auto": true,
                 "group": "🟥 Java"
             },
@@ -310,6 +335,12 @@
                 "group": "🟦 C#"
             },
             {
+                "command": "start chrome https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/builtin-types/value-tuples && exit",
+                "name": "────────────────────────────────【タプル型 ( Microsoft )】",
+                "auto": true,
+                "group": "🟦 C#"
+            },
+            {
                 "command": "cd ..\\ && git clone https://github.com/winofsql/cs-con-tuple.git && cd cs-con-tuple && rmdir .git /S /Q && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
                 "name": "🍙 【タプル】JavaScript のオブジェクトのような var a = (\"one\", \"two\");",
                 "auto": true,
@@ -334,8 +365,20 @@
                 "group": "🟦 C#"
             },
             {
-                "command": "mkdir ..\\cs-con-pdfsharp-rectangle && cd ..\\cs-con-pdfsharp-rectangle && dotnet new console && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/cs-con-pdfsharp-rectangle/raw/main Program.cs FontResolver.cs && dotnet add package PdfSharp --version 1.50.5147 && dotnet add package System.Text.Encoding.CodePages && dotnet add package System.Drawing.Common && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "command": "mkdir ..\\cs-con-pdfsharp-rectangle && cd ..\\cs-con-pdfsharp-rectangle && dotnet new console && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/cs-con-pdfsharp-rectangle/raw/main Program.cs FontResolver.cs README.md && dotnet add package PdfSharp --version 1.50.5147 && dotnet add package System.Text.Encoding.CodePages && dotnet add package System.Drawing.Common && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
                 "name": "📇【バッチ】ラノベPOP と 長方形描画 ( PDF 作成 )",
+                "auto": true,
+                "group": "🟦 C#"
+            },
+            {
+                "command": "mkdir ..\\cs-con-excel-new && cd ..\\cs-con-excel-new && dotnet new console && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/cs-con-excel-new/raw/main Program.cs && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "name": "📇【バッチ】ブックを作成してセルに値をセットして保存後 Excel で起動( COM )",
+                "auto": true,
+                "group": "🟦 C#"
+            },
+            {
+                "command": "cd ..\\ && git clone https://github.com/winofsql/cs-con-form-excel-open.git && cd cs-con-form-excel-open && rmdir .git /S /Q && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "name": "📇【バッチ】ブックを開いてセルに値をセットして保存後 Excel で起動( COM )",
                 "auto": true,
                 "group": "🟦 C#"
             },
@@ -346,13 +389,19 @@
                 "group": "🟦 C#"
             },
             {
+                "command": "start chrome https://dobon.net/vb/dotnet/form/openfiledialog.html#codecaption2 && exit",
+                "name": "──────────────────────────────────【OpenFileDialog】",
+                "auto": true,
+                "group": "🟦 C#"
+            },
+            {
                 "command": "cd ..\\ && git clone https://github.com/winofsql/cs-con-oledb-access-select.git && cd cs-con-oledb-access-select && rmdir .git /S /Q && dotnet add package System.Data.OleDb && cd ..\\ && git clone https://github.com/winofsql/cs-con-oledb-02.git && cd cs-con-oledb-02 && rmdir .git /S /Q && dotnet add package System.Data.OleDb && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
                 "name": "📕【バッチ + MS Access as DB】Microsoft Access に DB としてアクセス",
                 "auto": true,
                 "group": "🟦 C#"
             },
             {
-                "command": "cd ..\\ && git clone https://github.com/winofsql/cs-con-sqlclient-select.git && cd cs-con-sqlclient-select && rmdir .git /S /Q && dotnet add package System.Data.SqlClient && cd ..\\ && git clone https://github.com/winofsql/cs-con-sqlclient-02.git && cd cs-con-sqlclient-02 && rmdir .git /S /Q && dotnet add package System.Data.SqlClient && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "command": "cd ..\\ && git clone https://github.com/winofsql/cs-con-sqlclient-select.git && cd cs-con-sqlclient-select && rmdir .git /S /Q && dotnet add package System.Data.SqlClient && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
                 "name": "📕【バッチ + SQLExpress】",
                 "auto": true,
                 "group": "🟦 C#"
@@ -376,8 +425,8 @@
                 "group": "🟦 C#"
             },
             {
-                "command": "start chrome http://font.sumomo.ne.jp/font_1.html",
-                "name": "───────────────────────────────────────────",
+                "command": "start chrome http://font.sumomo.ne.jp/font_1.html && exit",
+                "name": "──────────────────────────────────【けいふぉんと！】",
                 "auto": true,
                 "group": "🟦 C#"
             },
@@ -418,8 +467,8 @@
                 "group": "🟦 C#"
             },
             {
-                "command": "start chrome https://docs.microsoft.com/ja-jp/dotnet/api/system.data.odbc.odbcconnection",
-                "name": "───────────────────────────────────────────",
+                "command": "start chrome https://docs.microsoft.com/ja-jp/dotnet/api/system.data.odbc.odbcconnection && exit",
+                "name": "────────────────────────────────【OdbcConnection クラス】",
                 "auto": true,
                 "group": "🟦 C#"
             },
@@ -460,14 +509,14 @@
                 "group": "🟦 C#"
             },
             {
-                "command": "mkdir ..\\cs-form-mail-mailkit && cd ..\\cs-form-mail-mailkit && dotnet new winforms && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/cs-form-mail-mailkit/raw/main Form1.cs Form1.Designer.cs && dotnet add package MailKit --version 2.15.0 && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
+                "command": "mkdir ..\\cs-form-mail-mailkit && cd ..\\cs-form-mail-mailkit && dotnet new winforms && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\download.vbs https://github.com/winofsql/cs-form-mail-mailkit/raw/main Form1.cs Form1.Designer.cs && dotnet add package MailKit --version 2.15.0 && dotnet add package System.Text.Encoding.CodePages && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs",
                 "name": "💌【メール送信】MailKit でメール送信",
                 "auto": true,
                 "group": "🟦 C#"
             },
             {
                 "command": "start chrome https://www.newtonsoft.com/json && exit",
-                "name": "───────────────────────────────────────────",
+                "name": "──────────────────────────────────【Json.NET】",
                 "auto": true,
                 "group": "🟦 C#"
             },
@@ -562,6 +611,12 @@
                 "group": "🔄 テスト"
             },
             {
+                "command": "cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\start-root-localhost.vbs && exit",
+                "name": "🌏 ROOT localhost",
+                "auto": true,
+                "group": "🔄 テスト"
+            },
+            {
                 "command": "mkdir ..\\java-%date:~5,2%%date:~8,2%-01 && mkdir ..\\java-%date:~5,2%%date:~8,2%-02 && mkdir ..\\java-%date:~5,2%%date:~8,2%-03 && cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\workspace-build-download.vbs && exit",
                 "name": "📂 Java フォルダ作成",
                 "auto": true,
@@ -616,7 +671,7 @@
                 "group": "🔄 テスト"
             },
             {
-                "command": "cd ..\\..\\ && start . &&  git clone https://github.com/winofsql/resource-winofsql.git && cd resource-winofsql && rmdir .git /S /Q && Code lightbox.code-workspace && exit",
+                "command": "cd ..\\..\\ && start . &&  git clone https://github.com/winofsql/resource-winofsql.git && cd resource-winofsql && rmdir .git /S /Q && move MySQL.md action && move MySQL.md action && Code lightbox.code-workspace && exit",
                 "name": "🟥 販売管理リソース",
                 "auto": true,
                 "group": "📥 ダウンロード"
@@ -748,6 +803,12 @@
                 "group": "🖐 設定"
             },
             {
+                "command": "if exist \\app\\workspace ( cd \\app\\workspace && git clone https://github.com/winofsql/subject.git && ren subject subject-%date:~5,2%%date:~8,2% && cd subject-%date:~5,2%%date:~8,2% && rmdir .git /S /Q && copy README.md zz-workspace && Code lightbox.code-workspace && exit ) else ( mkdir \\app\\workspace && cd \\app\\workspace && git clone https://github.com/winofsql/subject.git && ren subject subject-%date:~5,2%%date:~8,2% && cd subject-%date:~5,2%%date:~8,2% && rmdir .git /S /Q && copy README.md zz-workspace && Code lightbox.code-workspace && exit )",
+                "name": "🟥 SUBJECT 今日の日( app\\workspace に作成 )",
+                "auto": true,
+                "group": "🖐 設定"
+            },
+            {
                 "command": "cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\build-xampp-alias.vbs && exit",
                 "name": "💯 XAMPP Alias 設定",
                 "auto": true,
@@ -756,12 +817,6 @@
             {
                 "command": "cscript C:\\Users\\%USERNAME%\\AppData\\Roaming\\Code\\User\\script\\build-tomcat-path.vbs && cd WEB-INF\\classes\\lightbox && cmd /c comp.bat && exit",
                 "name": "🐱 TOMCAT PATH 作成",
-                "auto": true,
-                "group": "🖐 設定"
-            },
-            {
-                "command": "cd ..\\..\\ && git clone https://github.com/winofsql/subject.git && ren subject subject-%date:~5,2%%date:~8,2% && cd subject-%date:~5,2%%date:~8,2% && rmdir .git /S /Q && copy README.md zz-workspace && Code lightbox.code-workspace && exit",
-                "name": "🟥 SUBJECT 今日の日付",
                 "auto": true,
                 "group": "🖐 設定"
             },
@@ -779,5 +834,4 @@
             }
         ]
     }
-
 }
