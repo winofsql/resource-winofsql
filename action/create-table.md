@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/1501327/143729981-8a0aef0b-b139-4ec2-9566-9b4808f7d353.png)
 
 ```sql
-drop table if exists [社員マスタ_名称];
+drop table [社員マスタ_名称];
 create table [社員マスタ_名称] (
 	[社員コード] VARCHAR(4)
 	,[氏名] VARCHAR(50)
