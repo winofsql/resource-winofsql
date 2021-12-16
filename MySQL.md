@@ -83,3 +83,8 @@ FROM
     board a
     INNER JOIN `board` b
 ```
+
+- A x B 結合
+```sql
+select A.* from 社員マスタ A, 社員マスタ B
+```
