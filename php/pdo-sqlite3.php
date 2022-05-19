@@ -10,7 +10,7 @@ require_once("model.php");
 mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 
-// DSN : データソースネーム : H-ACCDB / 
+// 接続
 $dbh = new PDO("sqlite:C:/app/workspace/lightbox.sqlite3");
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
